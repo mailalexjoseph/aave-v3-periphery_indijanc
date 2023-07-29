@@ -1,0 +1,14 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..3787b89 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -94,7 +94,8 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+   /// @inheritdoc IRewardsController
+   function setTransferStrategy(address reward, ITransferStrategyBase transferStrategy)
+     external
+-    onlyEmissionManager
++    // mutating access control
++    //onlyEmissionManager
+   {
+     _installTransferStrategy(reward, transferStrategy);
+   }

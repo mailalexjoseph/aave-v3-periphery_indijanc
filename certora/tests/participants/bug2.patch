@@ -1,0 +1,13 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..40f9a35 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -185,7 +185,7 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+   }
+ 
+   /// @inheritdoc IRewardsController
+-  function setClaimer(address user, address caller) external override onlyEmissionManager {
++  function setClaimer(address user, address caller) external override /*onlyEmissionManager - mutating access control*/ {
+     _authorizedClaimers[user] = caller;
+     emit ClaimerSet(user, caller);
+   }

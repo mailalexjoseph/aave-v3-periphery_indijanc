@@ -1,0 +1,14 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..f32b50f 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -254,7 +254,8 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+       return 0;
+     }
+ 
+-    _transferRewards(to, reward, totalRewards);
++    // Mutate sending rewards to send a bit more than user asked or is entitled to
++    _transferRewards(to, reward + 1, totalRewards);
+     emit RewardsClaimed(user, reward, to, claimer, totalRewards);
+ 
+     return totalRewards;

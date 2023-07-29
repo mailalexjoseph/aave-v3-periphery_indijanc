@@ -1,0 +1,14 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..17d4297 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -76,7 +76,8 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+   function configureAssets(RewardsDataTypes.RewardsConfigInput[] memory config)
+     external
+     override
+-    onlyEmissionManager
++    // Access control mutation - removing onlyEmissionManager modifier
++    // onlyEmissionManager
+   {
+     for (uint256 i = 0; i < config.length; i++) {
+       // Get the current Scaled Total Supply of AToken or Debt token

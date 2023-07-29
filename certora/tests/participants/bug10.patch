@@ -1,0 +1,15 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..31d330b 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -113,7 +113,9 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+     uint256 totalSupply,
+     uint256 userBalance
+   ) external override {
+-    _updateData(msg.sender, user, userBalance, totalSupply);
++    //_updateData(msg.sender, user, userBalance, totalSupply);
++    // Mutate input: anyone can change first asset's internal state
++    _updateData(_assetsList[0], user, userBalance, totalSupply);
+   }
+ 
+   /// @inheritdoc IRewardsController

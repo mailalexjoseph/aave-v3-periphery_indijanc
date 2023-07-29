@@ -1,0 +1,13 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..861baa3 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -193,7 +193,7 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+     address asset,
+     address[] calldata rewards,
+     uint88[] calldata newEmissionsPerSecond
+-  ) external override onlyEmissionManager {
++  ) external override /*onlyEmissionManager mutating access control*/ {
+     require(rewards.length == newEmissionsPerSecond.length, 'INVALID_INPUT');
+     for (uint256 i = 0; i < rewards.length; i++) {
+       RewardsDataTypes.AssetData storage assetConfig = _assets[asset];
