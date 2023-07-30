@@ -8,7 +8,7 @@ index cfa4d82..f32b50f 100644
  
 -    _transferRewards(to, reward, totalRewards);
 +    // Mutate sending rewards to send a bit more than user asked or is entitled to
-+    _transferRewards(to, reward + 1, totalRewards);
++    _transferRewards(to, reward, totalRewards + 1);
      emit RewardsClaimed(user, reward, to, claimer, totalRewards);
  
      return totalRewards;
