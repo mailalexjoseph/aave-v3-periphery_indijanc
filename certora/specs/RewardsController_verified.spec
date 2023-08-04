@@ -222,7 +222,7 @@ rule handleActionModifiesCallingAssetUserState {
     assert after != before => e.msg.sender == AToken;
 }
 
-/////////////////////////////////////////////
+//////////////////////////////////////////////
 // The following section of rules all verify the same or similar property:
 //  - claiming reduces accrued reward balance, and
 //  - increases the reward token balance of the receiver
@@ -230,7 +230,7 @@ rule handleActionModifiesCallingAssetUserState {
 // This started out as a simple parameterized rule but had to be split out because of:
 //  - requiring parameter access to the claim functions
 //  - timeouts ... only the most reduced, single assert is not timing out ...
-/////////////////////////////////////////////
+//////////////////////////////////////////////
 
     // Claiming the rewards with claimRewards() correctly reduces amount of accrued rewards of the user
     //  - with amount less than or equal to accrued rewards
