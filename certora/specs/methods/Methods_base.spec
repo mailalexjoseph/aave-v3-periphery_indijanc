@@ -16,7 +16,6 @@ using TransferStrategyHarness as TransferStrategy;
         function EMISSION_MANAGER() external returns (address) envfree;
         function getTransferStrategy(address) external returns (address) envfree;
         function getRewardOracle(address) external returns (address) envfree;
-        function getRewardsData(address, address) external returns (uint256, uint256, uint256, uint256) envfree;
         function getRewardsByAsset(address asset) external returns (address[] memory) envfree;
         function getLastUpdateTimestamp(address asset, address reward) external returns (uint256) envfree;
         function getRewardsList() external returns (address[] memory) envfree;
@@ -106,3 +105,4 @@ using TransferStrategyHarness as TransferStrategy;
         require rewardsList[0] == reward;
         require getAvailableRewardsCountByAsset(asset) == 1;
     }
+    

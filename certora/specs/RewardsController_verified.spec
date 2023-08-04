@@ -8,32 +8,24 @@ invariant lastUpdateLessOrEqualToCurrentTimestamp(env e, address asset, address 
     {
         preserved with (env e2) { require e.block.timestamp == e2.block.timestamp; }
     }
-/*
-ghost mapping(address => mathint) rewardByAssetAddedCount {
-    init_state axiom forall address a. rewardByAssetAddedCount[a] == 0;
-}
 
-hook Sstore _assets[KEY address asset].availableRewards mapping(uint128 => address) new_reward STORAGE {
-    // when balance changes, update ghost
-    rewardByAssetAddedCount[asset] = rewardByAssetAddedCount[asset] + 1;
-}
-
-invariant assetRewardListAndCountAlwaysMatches(address asset)
-    getAvailableRewardsCountByAsset(asset) == rewardByAssetAddedCount[asset];
-*/
-
-// lastUpdateTimestamp should never be in the future
-/*rule lastUpdateLessOrEqualToCurrentTimestamp(method f) filtered { f -> !f.isView } {
+// If the lastUpdateTimestamp has ever been set, it must never be cleared (set to 0)
+// Otherwise we would be able to insert duplicates of the same reward for a given asset
+rule lastUpdateTimestampCannotBeSetToZero(method f) filtered { f -> !f.isView } {
     address asset;
     address reward;
-    env e;
-    require getLastUpdateTimestamp(asset, reward) <= e.block.timestamp;
 
+    require getLastUpdateTimestamp(asset, reward) > 0;
+
+    // verifying with all non-view functions
+    env e;
+    require e.block.timestamp > 0;
     calldataarg args;
     f(e, args);
 
-    assert getLastUpdateTimestamp(asset, reward) <= e.block.timestamp;
-}*/
+    // Reward lastUpdateTimestamp must never be set back to 0
+    assert getLastUpdateTimestamp(asset, reward) > 0;
+}
 
 // All configuration changes of the RewardsController are restricted to the emission manager
 rule onlyEmissionManagerAllowed(method f) filtered { f -> !f.isView } {
@@ -213,11 +205,11 @@ rule cannotStealRewards(method f) filtered {
 rule handleActionModifiesCallingAssetUserState {
     address user;
     address reward;
-    uint256 before = getUserAccruedRewards(user, reward);
-
     // Limit to single asset and single reward
     requireSingleAddressInList(getAssetsList(), AToken);
     requireSingleRewardForAsset(AToken, RewardToken);
+
+    uint256 before = getUserAccruedRewards(user, reward);
 
     uint256 totalSupply;
     uint256 userBalance;
