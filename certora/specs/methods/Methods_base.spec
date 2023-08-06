@@ -2,7 +2,6 @@ import "./ERC20_methods.spec";
 
 using DummyERC20_AToken as AToken;
 using DummyERC20_rewardToken as RewardToken;
-using TransferStrategyHarness as TransferStrategy;
 
 /////////////////// Methods ////////////////////////
 
@@ -78,9 +77,6 @@ using TransferStrategyHarness as TransferStrategy;
         require emissionPerSecond > 0;
         // distribution must not have ended
         require distributionEnd > e.block.timestamp;
-        // require lastUpdateTimestamp to be less than or equal to current timestamp, 
-        // property ensured by lastUpdateLessOrEqualToCurrentTimestamp invariant
-        requireInvariant lastUpdateLessOrEqualToCurrentTimestamp(e, asset, reward);
     }
 
     // Function to require and set a single asset

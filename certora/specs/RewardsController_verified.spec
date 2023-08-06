@@ -1,5 +1,7 @@
 import "methods/Methods_base.spec";
 
+using TransferStrategyHarness as TransferStrategy;
+
 ///////////////// Properties ///////////////////////
 
 // lastUpdateTimestamp should never be in the future
@@ -97,6 +99,9 @@ rule claimingRewardsMustUpdateRewardsState(method f) filtered { f -> isClaimFunc
 
     // There's several elements in RewardsData that need to be set to have a valid current active reward on the asset
     requireActiveReward(AToken, RewardToken, e);
+    // require lastUpdateTimestamp to be less than or equal to current timestamp, 
+    // property ensured by lastUpdateLessOrEqualToCurrentTimestamp invariant
+    requireInvariant lastUpdateLessOrEqualToCurrentTimestamp(e, asset, reward);
 
     uint256 indexBefore;
     uint256 lastUpdateTimestampBefore;
