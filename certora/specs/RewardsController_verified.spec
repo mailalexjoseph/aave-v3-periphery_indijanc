@@ -101,7 +101,7 @@ rule claimingRewardsMustUpdateRewardsState(method f) filtered { f -> isClaimFunc
     requireActiveReward(AToken, RewardToken, e);
     // require lastUpdateTimestamp to be less than or equal to current timestamp, 
     // property ensured by lastUpdateLessOrEqualToCurrentTimestamp invariant
-    requireInvariant lastUpdateLessOrEqualToCurrentTimestamp(e, asset, reward);
+    requireInvariant lastUpdateLessOrEqualToCurrentTimestamp(e, AToken, RewardToken);
 
     uint256 indexBefore;
     uint256 lastUpdateTimestampBefore;
