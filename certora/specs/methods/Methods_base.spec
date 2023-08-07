@@ -21,9 +21,10 @@ using DummyERC20_rewardToken as RewardToken;
         function getAvailableRewardsCountByAsset(address) external returns (uint256) envfree;
         function getAssetsList() external returns (address[] memory) envfree;
         function getAssetScaledTotalSupply(address) external returns (uint256) envfree;
-        function getUserDataByAssetByReward(address user, address asset, address reward) external returns (uint256, uint256) envfree;
-        function getUserRewards(address[] calldata, address, address) external returns (uint256);
+        function getUserDataByAssetByReward(address, address, address) external returns (uint256, uint256) envfree;
+        function getAssetDecimals(address) external returns (uint8) envfree;
 
+        function getUserRewards(address[] calldata, address, address) external returns (uint256);
         function claimAllRewards(address[] calldata, address) external returns (address[] memory, uint256[] memory);
         function claimRewards(address[] calldata, uint256, address, address) external  returns (uint256);
         function claimRewardsOnBehalf(address[] calldata, uint256, address, address, address) external returns (uint256);
@@ -100,5 +101,18 @@ using DummyERC20_rewardToken as RewardToken;
         require rewardsList.length == 1;
         require rewardsList[0] == reward;
         require getAvailableRewardsCountByAsset(asset) == 1;
+    }
+
+    // Function to require and set two rewards for a given asset
+    function requireDoubleRewardForAsset(address asset, address reward, address rewardB) {
+        address[] rewards = getRewardsByAsset(asset);
+        address[] rewardsList = getRewardsList();
+        require rewards.length == 2;
+        require rewards[0] == reward;
+        require rewards[1] == rewardB;
+        require rewardsList.length == 2;
+        require rewardsList[0] == reward;
+        require rewardsList[1] == rewardB;
+        require getAvailableRewardsCountByAsset(asset) == 2;
     }
     
