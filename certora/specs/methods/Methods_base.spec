@@ -92,6 +92,12 @@ using DummyERC20_rewardToken as RewardToken;
         require assetList[0] == asset;
     }
 
+    function requireDoubleAddressInList(address[] assetList, address asset, address assetB) {
+        require assetList.length == 2;
+        require assetList[0] == asset;
+        require assetList[1] == assetB;
+    }
+
     // Function to require and set a single reward for a given asset
     function requireSingleRewardForAsset(address asset, address reward) {
         address[] rewards = getRewardsByAsset(asset);
