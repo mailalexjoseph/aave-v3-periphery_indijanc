@@ -1,0 +1,14 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..7b6cde1 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -33,7 +33,8 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+   address[] internal _assetsList;
+ 
+   modifier onlyEmissionManager() {
+-    require(msg.sender == EMISSION_MANAGER, 'ONLY_EMISSION_MANAGER');
++    /// RequireMutation of: require(msg.sender == EMISSION_MANAGER, 'ONLY_EMISSION_MANAGER');
++    require(!(msg.sender == EMISSION_MANAGER), 'ONLY_EMISSION_MANAGER');
+     _;
+   }
+ 
