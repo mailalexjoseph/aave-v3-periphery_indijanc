@@ -1,0 +1,15 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..f8edc34 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -243,7 +243,9 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+       if (totalRewards <= amount) {
+         _assets[asset].rewards[reward].usersData[user].accrued = 0;
+       } else {
+-        uint256 difference = totalRewards - amount;
++        /// BinaryOpMutation of: uint256 difference = totalRewards + amount;
++        uint256 difference = totalRewards + amount;
++
+         totalRewards -= difference;
+         _assets[asset].rewards[reward].usersData[user].accrued = difference.toUint128();
+         break;

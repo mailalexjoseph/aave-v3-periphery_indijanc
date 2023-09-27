@@ -1,0 +1,21 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..2d66f40 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -204,11 +204,11 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+         'DISTRIBUTION_DOES_NOT_EXIST'
+       );
+ 
+-      (uint256 newIndex, ) = _updateRewardData(
+-        rewardConfig,
+-        IScaledBalanceToken(asset).scaledTotalSupply(),
+-        10**decimals
+-      );
++      uint256 newIndex; //) = _updateRewardData(
++      //   rewardConfig,
++      //   IScaledBalanceToken(asset).scaledTotalSupply(),
++      //   10**decimals
++      // );
+ 
+       uint256 oldEmissionPerSecond = rewardConfig.emissionPerSecond;
+       rewardConfig.emissionPerSecond = newEmissionsPerSecond[i];

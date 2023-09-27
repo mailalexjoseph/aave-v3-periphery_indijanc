@@ -1,0 +1,3 @@
+Inject bugs by modifying the contract and run `make bug` from the certora directory. Make sure to have exactly one bug injected, otherwise the .patch file will be inaccurate. You can either ctrl+z to remove the injected bug or `make restore` to undo all unstaged changes in the `src` folder.
+
+The bugs you inject are stored in `certora/tests/participants/`. We have included some public injected bugs in `certora/tests/certora/`. Catching these bugs will make you eligible for the participation prize. To run against all injected bugs do `sh certora/tests/verifyAllInjected.sh $1` with `$1` being the patches directory within tests that you want to run your rules against - either `certora` or `participants`.

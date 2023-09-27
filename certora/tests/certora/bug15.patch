@@ -1,0 +1,15 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..f44b205 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -508,7 +508,9 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+       emissionPerSecond == 0 ||
+       totalSupply == 0 ||
+       lastUpdateTimestamp == block.timestamp ||
+-      lastUpdateTimestamp >= distributionEnd
++      ///mutation: lastUpdateTimestamp >= distributionEnd -> lastUpdateTimestamp <= distributionEnd
++      ///This'll cause the index to not be updated and therefore the rewards to not be accrued and after the distribution period it starts rewarding people. Property: no rewards after end time and monotonically increasing rewards before end time.
++      lastUpdateTimestamp <= distributionEnd
+     ) {
+       return (oldIndex, oldIndex);
+     }

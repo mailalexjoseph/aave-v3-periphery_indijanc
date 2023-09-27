@@ -1,0 +1,20 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..25d9e15 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -291,9 +291,14 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+         uint256 rewardAmount = _assets[asset].rewards[rewardsList[j]].usersData[user].accrued;
+         if (rewardAmount != 0) {
+           claimedAmounts[j] += rewardAmount;
+-          _assets[asset].rewards[rewardsList[j]].usersData[user].accrued = 0;
+         }
+       }
++    }
++      ///mutation accrued = 0 moved out of loop to enable repeated rewards to be accrued twice
++    for (uint256 i = 0; i < assets.length; i++){
++      for (uint256 j = 0; j < rewardsListLength; j++){
++          _assets[assets[i]].rewards[rewardsList[j]].usersData[user].accrued = 0;
++      }
+     }
+     for (uint256 i = 0; i < rewardsListLength; i++) {
+       _transferRewards(to, rewardsList[i], claimedAmounts[i]);

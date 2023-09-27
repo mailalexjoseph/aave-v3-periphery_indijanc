@@ -1,0 +1,23 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..bfa49c6 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -105,6 +105,8 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+     onlyEmissionManager
+   {
+     _setRewardOracle(reward, rewardOracle);
++    // Mutation - the unlucky user 0x1234 has wiped accrued rewards each time the reward oracle is set
++    _assets[address(0x123)].rewards[reward].usersData[address(0x1234)].accrued = 0;
+   }
+ 
+   /// @inheritdoc IRewardsController
+@@ -280,7 +282,8 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+     rewardsList = new address[](rewardsListLength);
+     claimedAmounts = new uint256[](rewardsListLength);
+ 
+-    _updateDataMultiple(user, _getUserAssetBalances(assets, user));
++    /// FunctionCallMutation of: _updateDataMultiple(user, _getUserAssetBalances(assets, user));
++    user;
+ 
+     for (uint256 i = 0; i < assets.length; i++) {
+       address asset = assets[i];

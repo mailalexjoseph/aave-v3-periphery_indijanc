@@ -1,0 +1,13 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..ad2178b 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -173,7 +173,7 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+     address asset,
+     address reward,
+     uint32 newDistributionEnd
+-  ) external override onlyEmissionManager {
++  ) external override /*onlyEmissionManager mutating access control*/ {
+     uint256 oldDistributionEnd = _assets[asset].rewards[reward].distributionEnd;
+     _assets[asset].rewards[reward].distributionEnd = newDistributionEnd;
+ 

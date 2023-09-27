@@ -1,0 +1,15 @@
+diff --git a/contracts/rewards/RewardsController.sol b/contracts/rewards/RewardsController.sol
+index cfa4d82..651f2ee 100644
+--- a/contracts/rewards/RewardsController.sol
++++ b/contracts/rewards/RewardsController.sol
+@@ -123,8 +123,9 @@ contract RewardsController is RewardsDistributor, VersionedInitializable, IRewar
+     address to,
+     address reward
+   ) external override returns (uint256) {
+-    require(to != address(0), 'INVALID_TO_ADDRESS');
++    /// SwapLinesMutation of: require(to != address(0), 'INVALID_TO_ADDRESS');
+     return _claimRewards(assets, amount, msg.sender, msg.sender, to, reward);
++    require(to != address(0), 'INVALID_TO_ADDRESS');
+   }
+ 
+   /// @inheritdoc IRewardsController

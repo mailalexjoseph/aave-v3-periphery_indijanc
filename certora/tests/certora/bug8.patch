@@ -1,0 +1,14 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..f4d07e3 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -233,7 +233,8 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+     for (uint256 i = 0; i < rewardsInput.length; i++) {
+       if (_assets[rewardsInput[i].asset].decimals == 0) {
+         //never initialized before, adding to the list of assets
+-        _assetsList.push(rewardsInput[i].asset);
++        /// FunctionCallMutation of: _assetsList.push(rewardsInput[i].asset);
++        rewardsInput[i].asset;
+       }
+ 
+       uint256 decimals = _assets[rewardsInput[i].asset].decimals = IERC20Detailed(

@@ -1,0 +1,14 @@
+diff --git a/contracts/rewards/RewardsDistributor.sol b/contracts/rewards/RewardsDistributor.sol
+index 04d057a..ed71500 100644
+--- a/contracts/rewards/RewardsDistributor.sol
++++ b/contracts/rewards/RewardsDistributor.sol
+@@ -334,7 +334,8 @@ abstract contract RewardsDistributor is IRewardsDistributor {
+     if ((dataUpdated = userIndex != newAssetIndex)) {
+       // already checked for overflow in _updateRewardData
+       rewardData.usersData[user].index = uint104(newAssetIndex);
+-      if (userBalance != 0) {
++      /// IfStatementMutation of: if (userBalance != 0) {
++      if (!(userBalance != 0)) {
+         rewardsAccrued = _getRewards(userBalance, newAssetIndex, userIndex, assetUnit);
+ 
+         rewardData.usersData[user].accrued += rewardsAccrued.toUint128();
