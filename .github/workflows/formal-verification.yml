@@ -76,13 +76,16 @@ jobs:
       matrix:
         patch: ${{ fromJson(needs.list-patches.outputs.matrix) }} 
         rule: 
-            - certora/conf/default.conf --rule claimingRewardsMustUpdateRewardsState
-            - certora/conf/default.conf --rule cannotStealRewards
-            - certora/conf/default.conf --rule claimAllRewardsToSelfSendsRewards_assertRewards
-            - certora/conf/default.conf --rule claimAllRewardsSendsRewards_assertRewards
-            - certora/conf/default.conf --rule claimAllRewardsToSelfSendsRewards_assertBalance
-            - certora/conf/default.conf --rule claimAllRewardsOnBehalfSendsRewards_assertBalance
-            - certora/conf/default.conf --rule claimAllRewardsOnBehalfSendsRewards_assertRewards
-            - certora/conf/default.conf --rule claimAllRewardsSendsRewards_assertBalance
+- certora/conf/verifyRewardsController_verified.conf --rule claimingRewardsMustUpdateRewardsState
+- certora/conf/verifyRewardsController_verified.conf --rule claimAllRewardsSendsRewards_assertBalance
+- certora/conf/verifyRewardsController_verified.conf --rule claimAllRewardsSendsRewards_assertRewards
+- certora/conf/verifyRewardsController_verified.conf --rule claimAllRewardsToSelfSendsRewards_assertBalance
+- certora/conf/verifyRewardsController_verified.conf --rule cannotStealRewards
+- certora/conf/verifyRewardsController_verified.conf --rule claimAllRewardsOnBehalfSendsRewards_assertBalance
+- certora/conf/verifyRewardsController_verified.conf --rule claimAllRewardsOnBehalfSendsRewards_assertRewards
+- certora/conf/verifyRewardsController_verified.conf --rule claimAllRewardsToSelfSendsRewards_assertRewards
+- certora/conf/verifyRewardsController_multiReward_verified.conf --rule claimAllRewardsForTwoAssetsUpdatesUserRewards
+- certora/conf/verifyRewardsController_multiReward_verified.conf --rule claimAllRewardsSendsRewards
+- certora/conf/verifyRewardsController_multiReward_verified.conf --rule claimAllRewardsUpdatesUserRewards
 
             
